@@ -1,15 +1,42 @@
 import 'package:flutter/material.dart';
 
-import '../home/home_page.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../style/typography.dart';
+import 'app_router.dart';
 
-class AppWidget extends StatelessWidget {
+class AppWidget extends StatefulWidget {
   const AppWidget({super.key});
 
   @override
+  State<AppWidget> createState() => _AppWidgetState();
+}
+
+class _AppWidgetState extends State<AppWidget> {
+  late final AppRouter appRouter = AppRouter();
+
+  late final ThemeData theme = ThemeData(
+    extensions: const [
+      AppTextStyles.defaultTypography,
+    ],
+  );
+
+  late final ThemeData darkTheme = theme.copyWith(
+    colorScheme: theme.colorScheme.copyWith(
+      brightness: Brightness.dark,
+    ),
+  );
+
+  late final Locale locale = const Locale('en', 'US');
+
+  @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       title: 'Restaurant Tour',
-      home: HomePage(),
+      theme: theme,
+      darkTheme: darkTheme,
+      locale: locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      routerDelegate: appRouter.router.routerDelegate,
     );
   }
 }

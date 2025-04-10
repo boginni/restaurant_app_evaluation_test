@@ -1,6 +1,6 @@
-import '../../domain/architecture/either.dart';
 import '../../domain/architecture/response.dart';
 import '../../domain/datasources/restaurant_datasource.dart';
+import '../../domain/entities/restaurant_query_result_entity.dart';
 import '../../domain/query_entity/get_restaurant_query_entity.dart';
 import '../../domain/repositories/restaurant_repository.dart';
 
@@ -10,7 +10,7 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
   final RestaurantDatasource datasource;
 
   @override
-  Future<Response<GetRestaurantQueryEntity>> getRestaurants(
+  Future<Response<RestaurantQueryResultEntity>> getRestaurants(
     GetRestaurantQueryEntity query,
   ) async {
     // try {

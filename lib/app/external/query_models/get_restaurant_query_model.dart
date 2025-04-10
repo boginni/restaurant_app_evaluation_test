@@ -16,37 +16,37 @@ class GetRestaurantQueryModel {
   final int offset;
 
   String toQuery() => '''
-  query getRestaurants {
-    search(location: "Las Vegas", limit: 20, offset: $offset) {
-      total    
-      business {
+query getRestaurants {
+  search(location: "Las Vegas", limit: 20, offset: $offset) {
+    total    
+    business {
+      id
+      name
+      price
+      rating
+      photos
+      reviews {
         id
-        name
-        price
         rating
-        photos
-        reviews {
+        text
+        user {
           id
-          rating
-          text
-          user {
-            id
-            image_url
-            name
-          }
+          image_url
+          name
         }
-        categories {
-          title
-          alias
-        }
-        hours {
-          is_open_now
-        }
-        location {
-          formatted_address
-        }
+      }
+      categories {
+        title
+        alias
+      }
+      hours {
+        is_open_now
+      }
+      location {
+        formatted_address
       }
     }
   }
+}
   ''';
 }

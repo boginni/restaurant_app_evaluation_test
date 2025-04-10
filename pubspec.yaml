@@ -19,7 +19,7 @@ dependencies:
 
   firebase_crashlytics: ^4.3.5
   flutter_secure_storage: ^9.2.4
-  shared_preferences: ^2.4.3
+  shared_preferences: ^2.2.3
   firebase_core: ^3.13.0
   bloc: ^9.0.0
   dio: ^5.8.0+1
@@ -28,11 +28,16 @@ dependencies:
   http: ^1.2.2
   json_annotation: ^4.9.0
 
+dependency_overrides:
+  watcher: ^1.0.0
+  file: ^7.0.0
+  pub_semver: ^2.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  build_runner: ^2.4.10
+  build_runner: ^2.3.0
   json_serializable: ^6.8.0
 
 flutter:

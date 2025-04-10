@@ -1,4 +1,21 @@
-String query(int offset) => '''
+import '../../domain/query_entity/get_restaurant_query_entity.dart';
+
+class GetRestaurantQueryModel {
+  const GetRestaurantQueryModel({
+    required this.offset,
+  });
+
+  factory GetRestaurantQueryModel.fromEntity(
+    GetRestaurantQueryEntity entity,
+  ) {
+    return GetRestaurantQueryModel(
+      offset: entity.offset,
+    );
+  }
+
+  final int offset;
+
+  String toQuery() => '''
   query getRestaurants {
     search(location: "Las Vegas", limit: 20, offset: $offset) {
       total    
@@ -32,3 +49,4 @@ String query(int offset) => '''
     }
   }
   ''';
+}

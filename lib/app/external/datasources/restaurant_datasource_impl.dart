@@ -33,6 +33,6 @@ class RestaurantDatasourceImpl implements RestaurantDatasource {
       }
     }
 
-    throw UnknownFailure();
+    throw UnknownFailure(response.data, StackTrace.current);
   }
 }

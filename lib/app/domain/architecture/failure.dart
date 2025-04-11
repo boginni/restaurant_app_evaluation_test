@@ -1,3 +1,5 @@
+
+
 abstract class Failure implements Exception {
   const Failure(this.stackTrace);
 
@@ -7,7 +9,8 @@ abstract class Failure implements Exception {
 }
 
 class SerializationFailure extends Failure {
-  const SerializationFailure(this.error, StackTrace stackTrace) : super(stackTrace);
+  const SerializationFailure(this.error, StackTrace stackTrace)
+      : super(stackTrace);
 
   final Exception error;
 
@@ -15,13 +18,29 @@ class SerializationFailure extends Failure {
   bool get isFatal => true;
 }
 
-class UnknownFailure extends Failure {
-  factory UnknownFailure() {
-    return UnknownFailure._(StackTrace.current);
-  }
-
-  const UnknownFailure._(super.stackTrace);
+class UnauthorizedFailure extends Failure {
+  const UnauthorizedFailure(super.stackTrace);
 
   @override
   bool get isFatal => true;
+}
+
+class UnknownFailure extends Failure {
+  const UnknownFailure(this.message, super.stackTrace);
+
+  final dynamic message;
+
+  @override
+  bool get isFatal => true;
+
+  @override
+  String toString() {
+    final Object? message = this.message;
+
+    if (message == null) {
+      return 'UnknownFailure';
+    }
+
+    return 'UnknownFailure: $message';
+  }
 }

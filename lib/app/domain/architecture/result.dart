@@ -5,6 +5,14 @@ class Result<T> {
 
   const Result.success(this._success) : _failure = null;
 
+  factory Result.failureFromCatch(dynamic e, StackTrace s) {
+    if (e is Failure) {
+      return Result.failure(e);
+    }
+
+    return Result.failure(UnknownFailure(e, s));
+  }
+
   final T? _success;
 
   final Failure? _failure;

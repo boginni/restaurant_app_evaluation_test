@@ -13,14 +13,11 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
   Future<Result<RestaurantQueryResultEntity>> getRestaurants(
     GetRestaurantQueryEntity query,
   ) async {
-    // try {
-    //   final result = await datasource.getRestaurants(query);
-    //
-    //   return Either.right(result);
-    // } catch (e) {
-    //   return Either.left(e);
-    // }
-
-    throw UnimplementedError();
+    try {
+      final result = await datasource.getRestaurants(query);
+      return Result.success(result);
+    } catch (e, s) {
+      return Result.failureFromCatch(e, s);
+    }
   }
 }

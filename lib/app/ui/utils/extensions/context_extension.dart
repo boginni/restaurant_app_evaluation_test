@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../style/theme_extensions/app_colors.dart';
 import '../../style/theme_extensions/app_typography.dart';
 
 extension ContextExtension on BuildContext {
@@ -15,5 +16,7 @@ extension ContextExtension on BuildContext {
 
   TextTheme get textTheme => Theme.of(this).textTheme;
 
-  AppTypography get typography => Theme.of(this).extension<AppTypography>()!;
+  AppTypography get appTypography => Theme.of(this).extension<AppTypography>()!;
+
+  AppColors get appColors => Theme.of(this).extension<AppColors>()!;
 }

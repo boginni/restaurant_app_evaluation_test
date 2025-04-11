@@ -16,11 +16,13 @@ class HomeRoute {
     builder: builder,
   );
 
+  late final RestaurantListBloc restaurantListBloc = RestaurantListBloc(
+    i(),
+  );
+
   Widget builder(BuildContext context, GoRouterState state) {
     return HomePage(
-      restaurantListBloc: RestaurantListBloc(
-        i(),
-      ),
+      restaurantListBloc: restaurantListBloc,
     );
   }
 }

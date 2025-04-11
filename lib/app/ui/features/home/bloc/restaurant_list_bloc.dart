@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../domain/query_entity/get_restaurant_query_entity.dart';
 import '../../../../domain/use_cases/get_restaurants_use_case.dart';
+import '../../../utils/extensions/int_extension.dart';
 import 'restaurant_list_bloc_events.dart';
 import 'restaurant_list_bloc_states.dart';
 
@@ -33,6 +34,10 @@ class RestaurantListBloc
     }
 
     emitter(loadingState);
+
+    await Future.delayed(
+      1.second,
+    );
 
     final result = await getRestaurantsUseCase(
       GetRestaurantQueryEntity(event.offset, event.favorites),

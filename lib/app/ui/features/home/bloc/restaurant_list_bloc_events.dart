@@ -3,10 +3,10 @@ sealed class RestaurantListBlocEvent {
 }
 
 class GetRestaurantsEvent extends RestaurantListBlocEvent {
-  const GetRestaurantsEvent(
-    this.offset,
-    this.favorites,
-  );
+  const GetRestaurantsEvent({
+    required this.offset,
+    required this.favorites,
+  });
 
   final int offset;
   final bool favorites;

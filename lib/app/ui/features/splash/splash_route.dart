@@ -16,11 +16,13 @@ class SplashRoute {
     builder: builder,
   );
 
+  late final SplashBloc splashBloc = SplashBloc(
+    i.get(),
+  );
+
   Widget builder(BuildContext context, GoRouterState state) {
     return SplashPage(
-      splashBloc: SplashBloc(
-        i.get(),
-      ),
+      splashBloc: splashBloc,
     );
   }
 }

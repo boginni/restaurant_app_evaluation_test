@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../../../setup.dart';
+import '../../style/theme_extensions/app_colors.dart';
 import '../../style/typography.dart';
 import 'app_router.dart';
 
@@ -18,6 +19,11 @@ class _AppWidgetState extends State<AppWidget> {
   late final ThemeData theme = ThemeData(
     extensions: const [
       AppTextStyles.defaultTypography,
+      AppColors(
+        ratingStars: Colors.amber,
+        openStatusColor: Colors.green,
+        closedStatusColor: Colors.red,
+      ),
     ],
   );
 
@@ -45,6 +51,7 @@ class _AppWidgetState extends State<AppWidget> {
       locale: locale,
       themeMode: ThemeMode.light,
       supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
       routerConfig: appRouter.router,
     );
   }

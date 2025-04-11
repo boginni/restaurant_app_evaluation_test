@@ -1,23 +1,28 @@
-import '../../domain/query_entity/get_restaurant_details_query_entity.dart';
+import '../../domain/query_entity/get_restaurants_query_entity.dart';
 
-class GetRestaurantQueryModel {
-  const GetRestaurantQueryModel({
-    required this.id,
+class GetRestaurantsQueryModel {
+  const GetRestaurantsQueryModel({
+    required this.offset,
+    required this.favorites,
   });
 
-  factory GetRestaurantQueryModel.fromEntity(
-    GetRestaurantDetailsQueryEntity entity,
+  factory GetRestaurantsQueryModel.fromEntity(
+    GetRestaurantsQueryEntity entity,
   ) {
-    return GetRestaurantQueryModel(
-      id: entity.id,
+    return GetRestaurantsQueryModel(
+      offset: entity.offset,
+      favorites: entity.favorites,
     );
   }
 
-  final String id;
+  final int offset;
+  final bool favorites;
 
   String toQuery() {
     final query = {
-      'id': '"$id"',
+      'location': '"Las Vegas"',
+      'limit': 20,
+      offset: offset,
     };
 
     final queryString =

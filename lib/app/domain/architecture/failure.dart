@@ -1,5 +1,3 @@
-
-
 abstract class Failure implements Exception {
   const Failure(this.stackTrace);
 
@@ -42,5 +40,22 @@ class UnknownFailure extends Failure {
     }
 
     return 'UnknownFailure: $message';
+  }
+}
+
+class RestaurantNotFoundFailure extends Failure {
+  const RestaurantNotFoundFailure(
+    super.stackTrace, {
+    required this.id,
+  });
+
+  final String id;
+
+  @override
+  bool get isFatal => false;
+
+  @override
+  String toString() {
+    return 'RestaurantNotFoundFailure: $id';
   }
 }

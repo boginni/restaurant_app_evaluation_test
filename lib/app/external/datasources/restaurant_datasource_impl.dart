@@ -4,10 +4,13 @@ import 'package:dio/dio.dart';
 
 import '../../domain/architecture/failure.dart';
 import '../../domain/datasources/restaurant_datasource.dart';
+import '../../domain/entities/restaurant_entity.dart';
 import '../../domain/entities/restaurant_query_result_entity.dart';
-import '../../domain/query_entity/get_restaurant_query_entity.dart';
+import '../../domain/query_entity/get_restaurant_details_query_entity.dart';
+import '../../domain/query_entity/get_restaurants_query_entity.dart';
 import '../models/restaurant_query_result_model.dart';
 import '../query_models/get_restaurant_query_model.dart';
+import '../query_models/get_restaurants_query_model.dart';
 
 class RestaurantDatasourceImpl implements RestaurantDatasource {
   const RestaurantDatasourceImpl(this.dio);
@@ -16,9 +19,9 @@ class RestaurantDatasourceImpl implements RestaurantDatasource {
 
   @override
   Future<RestaurantQueryResultEntity> getRestaurants(
-    GetRestaurantQueryEntity query,
+    GetRestaurantsQueryEntity query,
   ) async {
-    final model = GetRestaurantQueryModel.fromEntity(query);
+    final model = GetRestaurantsQueryModel.fromEntity(query);
 
     // final response = await dio.post(
     //   '/graphql',
@@ -36,6 +39,36 @@ class RestaurantDatasourceImpl implements RestaurantDatasource {
     }
 
     // throw UnknownFailure(response.data, StackTrace.current);
+  }
+
+  @override
+  Future<RestaurantEntity> getRestaurantDetails(
+    GetRestaurantDetailsQueryEntity query,
+  ) async {
+    final model = GetRestaurantQueryModel.fromEntity(query);
+
+    // final response = await dio.post(
+    //   '/graphql',
+    //   data: model.toQuery(),
+    // );
+
+    final data = jsonDecode(_response);
+
+    try {
+      final model = RestaurantQueryResultModel.fromJson(
+        data['data']['search'],
+      );
+
+      final restaurant = model.business?.firstOrNull;
+
+      if (restaurant == null) {
+        throw RestaurantNotFoundFailure(StackTrace.current, id: query.id);
+      }
+
+      return restaurant.toEntity();
+    } on Exception catch (e, s) {
+      throw SerializationFailure(e, s);
+    }
   }
 }
 

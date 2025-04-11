@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/restaurant_entity.dart';
 import '../../utils/assets.dart';
 import '../../utils/extensions/app_localization_extension.dart';
 import '../../utils/extensions/context_extension.dart';
 import '../../utils/extensions/image_provider_extension.dart';
+import '../app/app_router.dart';
 import 'bloc/restaurant_list_bloc.dart';
 import 'bloc/restaurant_list_bloc_events.dart';
 import 'bloc/restaurant_list_bloc_states.dart';
@@ -90,6 +92,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void onTap(RestaurantEntity restaurant) {
+    context.pushNamed(AppRouter.restaurantDetailsRoute(restaurant.id ?? ''));
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -132,13 +138,12 @@ class _HomePageState extends State<HomePage> {
                       child: CircularProgressIndicator(),
                     ),
                   LoadedRestaurantListState(
-                    result: final result,
                     isLoadingMore: final isLoadingMore
                   ) =>
                     RefreshIndicator(
                       onRefresh: onRefresh,
                       child: ListView.builder(
-                        itemCount: result.restaurants?.length ?? 0,
+                        itemCount: restaurants.length + 1,
                         padding: const EdgeInsets.all(8),
                         prototypeItem: const RestaurantListTileWidget(
                           image: AssetImage(Assets.placeHolder),
@@ -150,11 +155,17 @@ class _HomePageState extends State<HomePage> {
                           tags: ['short tag'],
                         ),
                         itemBuilder: (context, index) {
-                          final restaurant = result.restaurants?[index];
+                          if (index >= restaurants.length) {
+                            if (isLoadingMore) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
 
-                          if (restaurant == null) {
-                            return const Text('Restaurant not found');
+                            return const SizedBox();
                           }
+
+                          final restaurant = restaurants[index];
 
                           return RestaurantListTileWidget(
                             image: restaurant
@@ -168,9 +179,7 @@ class _HomePageState extends State<HomePage> {
                                     ?.map((e) => e.title ?? '')
                                     .toList() ??
                                 [],
-                            onTap: () {
-
-                            },
+                            onTap: () {},
                           );
                         },
                       ),

@@ -31,8 +31,6 @@ class RestaurantDetailsBloc
       const RestaurantDetailsLoadingState(),
     );
 
-    await Future.delayed(1.second);
-
     final result = await getRestaurantDetailsUseCase(
       GetRestaurantDetailsQueryEntity(id: id),
     );
@@ -55,5 +53,7 @@ class RestaurantDetailsBloc
     emit(
       const RestaurantDetailsErrorState(),
     );
+
+    Error.throwWithStackTrace(result.failure, result.failure.stackTrace);
   }
 }

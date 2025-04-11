@@ -21,8 +21,8 @@ class GetRestaurantsQueryModel {
   String toQuery() {
     final query = {
       'location': '"Las Vegas"',
-      'limit': 20,
-      offset: offset,
+      'limit': 7,
+      'offset': offset,
     };
 
     final queryString =
@@ -38,16 +38,6 @@ query getRestaurants {
       price
       rating
       photos
-      reviews {
-        id
-        rating
-        text
-        user {
-          id
-          image_url
-          name
-        }
-      }
       categories {
         title
         alias

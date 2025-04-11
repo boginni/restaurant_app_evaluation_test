@@ -20,6 +20,7 @@ class SplashBloc extends Bloc<SplashBlocEvents, SplashBlocState> {
       emit(const SplashSuccessState());
     } catch (e) {
       emit(const SplashErrorState());
+      rethrow;
     }
   }
 }

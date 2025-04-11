@@ -1,14 +1,14 @@
 import '../../domain/query_entity/get_restaurant_details_query_entity.dart';
 
-class GetRestaurantQueryModel {
-  const GetRestaurantQueryModel({
+class GetRestaurantDetailsQueryModel {
+  const GetRestaurantDetailsQueryModel({
     required this.id,
   });
 
-  factory GetRestaurantQueryModel.fromEntity(
+  factory GetRestaurantDetailsQueryModel.fromEntity(
     GetRestaurantDetailsQueryEntity entity,
   ) {
-    return GetRestaurantQueryModel(
+    return GetRestaurantDetailsQueryModel(
       id: entity.id,
     );
   }
@@ -24,10 +24,8 @@ class GetRestaurantQueryModel {
         query.entries.map((entry) => '${entry.key} : ${entry.value}').join(',');
 
     return '''
-query getRestaurants {
-  search($queryString) {
-    total    
-    business {
+query getRestaurantDetails {
+    business($queryString) {
       id
       name
       price
@@ -54,7 +52,6 @@ query getRestaurants {
         formatted_address
       }
     }
-  }
 }
   ''';
   }

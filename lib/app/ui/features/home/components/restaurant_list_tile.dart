@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/extensions/app_localization_extension.dart';
+import '../../../design_system/atoms/image_avatar_widget.dart';
+import '../../../design_system/atoms/open_status_widget.dart';
+import '../../../design_system/atoms/restaurant_price_and_categories_widget.dart';
+import '../../../design_system/atoms/stars_rating_widget.dart';
 import '../../../utils/extensions/context_extension.dart';
-import 'open_status_widget.dart';
-import 'stars_rating_widget.dart';
 
 class RestaurantListTileWidget extends StatelessWidget {
   const RestaurantListTileWidget({
@@ -40,22 +41,14 @@ class RestaurantListTileWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Material(
-                  color: Colors.transparent,
-                  clipBehavior: Clip.antiAlias,
-                  borderRadius: BorderRadius.circular(
-                    8,
-                  ),
-                  child: Ink(
-                    height: 16 * 6,
-                    width: 16 * 6,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: image,
-                        fit: BoxFit.cover,
-                      ),
+                ImageAvatarWidget(
+                  image: image,
+                  shape:  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      8,
                     ),
                   ),
+                  size: 16 * 6,
                 ),
                 const SizedBox(width: 8),
                 Expanded(
@@ -70,32 +63,9 @@ class RestaurantListTileWidget extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 16 * 2,
-                        child: Wrap(
-                          clipBehavior: Clip.antiAlias,
-                          children: [
-                            Text(
-                              price ?? '',
-                              style: context.appTypography.openRegularText,
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            ...?tags?.map(
-                              (e) => Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    e,
-                                    style:
-                                        context.appTypography.openRegularText,
-                                  ),
-                                  const SizedBox(
-                                    width: 4,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                        child: RestaurantPriceAndTagsWidget(
+                          price: price ?? '',
+                          tags: tags ?? [],
                         ),
                       ),
                       Row(
@@ -109,12 +79,7 @@ class RestaurantListTileWidget extends StatelessWidget {
                               starSize: 12,
                             ),
                           OpenStatusWidget(
-                            text: isOpen
-                                ? context.l10n.openNow
-                                : context.l10n.closed,
-                            color: isOpen
-                                ? context.appColors.openStatusColor
-                                : context.appColors.closedStatusColor,
+                            isOpen: isOpen,
                           ),
                         ],
                       ),

@@ -12,8 +12,7 @@ class AppRouter {
 
   static const String home = '/home';
   static const String splash = '/splash';
-  static const String restaurantDetails = '/restaurantDetails/:id';
-  static String restaurantDetailsRoute(String id) => '/restaurantDetails/$id';
+  static const String restaurantDetails = '/restaurantDetails';
 
 
   late final router = GoRouter(

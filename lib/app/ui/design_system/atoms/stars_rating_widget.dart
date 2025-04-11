@@ -9,7 +9,7 @@ class StarsRatingWidget extends StatelessWidget {
     this.starSize,
   });
 
-  final double rating;
+  final num rating;
   final int totalStars;
   final Color starColor;
   final double? starSize;

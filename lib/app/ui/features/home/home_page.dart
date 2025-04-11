@@ -93,7 +93,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onTap(RestaurantEntity restaurant) {
-    context.pushNamed(AppRouter.restaurantDetailsRoute(restaurant.id ?? ''));
+    context.pushNamed(
+      AppRouter.restaurantDetails,
+      pathParameters: {
+        'id': restaurant.id ?? '',
+      },
+    );
   }
 
   @override
@@ -179,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                                     ?.map((e) => e.title ?? '')
                                     .toList() ??
                                 [],
-                            onTap: () {},
+                            onTap: () => onTap(restaurant),
                           );
                         },
                       ),

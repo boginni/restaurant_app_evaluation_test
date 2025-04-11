@@ -11,7 +11,8 @@ class DioAuthorizationInterceptor extends Interceptor
   String? bearer;
 
   bool validateStatus(int? status) {
-    return true;
+    return status != null &&
+        (status >= 200 && status < 300 || status == 401 || status == 500);
   }
 
   @override
@@ -30,26 +31,22 @@ class DioAuthorizationInterceptor extends Interceptor
   }
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    if (response.statusCode == 401) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    if (err.response?.statusCode == 401) {
       handler.reject(
         DioAuthorizationFailure(
-          requestOptions: response.requestOptions,
-          response: response,
+          requestOptions: err.requestOptions,
+          response: err.response,
         ),
       );
     }
 
-    if (response.statusCode == 500) {
-      handler.reject(
-        DioServerFailure(
-          requestOptions: response.requestOptions,
-          response: response,
-        ),
-      );
-    }
-
-    handler.next(response);
+    handler.next(
+      DioServerFailure(
+        requestOptions: err.requestOptions,
+        response: err.response,
+      ),
+    );
   }
 
   @override

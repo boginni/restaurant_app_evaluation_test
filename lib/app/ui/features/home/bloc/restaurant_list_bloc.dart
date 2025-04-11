@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../domain/query_entity/get_restaurant_query_entity.dart';
 import '../../../../domain/use_cases/get_restaurants_use_case.dart';
@@ -8,7 +8,11 @@ import 'restaurant_list_bloc_states.dart';
 class RestaurantListBloc
     extends Bloc<RestaurantListBlocEvent, RestaurantListBlocState> {
   RestaurantListBloc(this.getRestaurantsUseCase)
-      : super(const LoadingRestaurantListState());
+      : super(const LoadingRestaurantListState()) {
+    on<GetRestaurantsEvent>(
+      loadFavoritesRestaurants,
+    );
+  }
 
   final GetRestaurantsUseCase getRestaurantsUseCase;
 

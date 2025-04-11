@@ -1,15 +1,15 @@
-sealed class SplashBlocStates {
-  const SplashBlocStates();
+sealed class SplashBlocState {
+  const SplashBlocState();
 }
 
-final class SplashLoadingState extends SplashBlocStates {
+final class SplashLoadingState extends SplashBlocState {
   const SplashLoadingState();
 }
 
-final class SplashSuccessState extends SplashBlocStates {
+final class SplashSuccessState extends SplashBlocState {
   const SplashSuccessState();
 }
 
-final class SplashErrorState extends SplashBlocStates {
+final class SplashErrorState extends SplashBlocState {
   const SplashErrorState();
 }

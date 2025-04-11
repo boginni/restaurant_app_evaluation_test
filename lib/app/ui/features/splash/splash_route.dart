@@ -1,25 +1,25 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '../app/app_router.dart';
-import 'bloc/restaurant_list_bloc.dart';
-import 'home_page.dart';
+import 'bloc/splash_bloc.dart';
+import 'splash_page.dart';
 
-class HomeRoute {
-  HomeRoute(this.i);
+class SplashRoute {
+  SplashRoute(this.i);
 
   final GetIt i;
 
   late final GoRoute route = GoRoute(
-    path: AppRouter.home,
+    path: AppRouter.splash,
     builder: builder,
   );
 
   Widget builder(BuildContext context, GoRouterState state) {
-    return HomePage(
-      restaurantListBloc: RestaurantListBloc(
-        i(),
+    return SplashPage(
+      splashBloc: SplashBloc(
+        i.get(),
       ),
     );
   }

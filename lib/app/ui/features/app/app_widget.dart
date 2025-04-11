@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../setup.dart';
 import '../../style/typography.dart';
 import 'app_router.dart';
 
@@ -12,7 +13,7 @@ class AppWidget extends StatefulWidget {
 }
 
 class _AppWidgetState extends State<AppWidget> {
-  late final AppRouter appRouter = AppRouter();
+  late final AppRouter appRouter;
 
   late final ThemeData theme = ThemeData(
     extensions: const [
@@ -27,6 +28,13 @@ class _AppWidgetState extends State<AppWidget> {
   );
 
   late final Locale locale = const Locale('en', 'US');
+
+  @override
+  void initState() {
+    super.initState();
+    final i = setup();
+    appRouter = AppRouter(i);
+  }
 
   @override
   Widget build(BuildContext context) {

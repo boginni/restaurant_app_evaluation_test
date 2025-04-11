@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities/restaurant.dart';
+import 'bloc/restaurant_list_bloc.dart';
+import 'bloc/restaurant_list_bloc_events.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({
+    super.key,
+    required this.restaurantListBloc,
+  });
 
-  Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
-    final headers = {
-      'Authorization': 'Bearer $_apiKey',
-      'Content-Type': 'application/graphql',
-    };
+  final RestaurantListBloc restaurantListBloc;
 
-    try {
-      final response = await http.post(
-        Uri.parse(_baseUrl),
-        headers: headers,
-        body: query(offset),
-      );
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
-      if (response.statusCode == 200) {
-        return RestaurantQueryResult.fromJson(
-          jsonDecode(response.body)['data']['search'],
+class _HomePageState extends State<HomePage> {
+  RestaurantListBloc get bloc => widget.restaurantListBloc;
+
+  int offset = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        bloc.add(
+          GetRestaurantsEvent(
+            offset,
+            false,
+          ),
         );
-      } else {
-        print('Failed to load restaurants: ${response.statusCode}');
-        return null;
-      }
-    } catch (e) {
-      print('Error fetching restaurants: $e');
-      return null;
-    }
+      },
+    );
   }
 
   @override
@@ -43,16 +46,12 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               child: const Text('Fetch Restaurants'),
               onPressed: () async {
-                try {
-                  final result = await getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
+                bloc.add(
+                  GetRestaurantsEvent(
+                    offset,
+                    false,
+                  ),
+                );
               },
             ),
           ],

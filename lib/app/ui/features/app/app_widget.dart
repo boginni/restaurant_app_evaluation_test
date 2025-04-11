@@ -35,8 +35,9 @@ class _AppWidgetState extends State<AppWidget> {
       theme: theme,
       darkTheme: darkTheme,
       locale: locale,
+      themeMode: ThemeMode.light,
       supportedLocales: AppLocalizations.supportedLocales,
-      routerDelegate: appRouter.router.routerDelegate,
+      routerConfig: appRouter.router,
     );
   }
 }

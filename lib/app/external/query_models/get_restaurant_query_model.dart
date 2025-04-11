@@ -3,6 +3,7 @@ import '../../domain/query_entity/get_restaurant_query_entity.dart';
 class GetRestaurantQueryModel {
   const GetRestaurantQueryModel({
     required this.offset,
+    required this.favorites,
   });
 
   factory GetRestaurantQueryModel.fromEntity(
@@ -10,10 +11,12 @@ class GetRestaurantQueryModel {
   ) {
     return GetRestaurantQueryModel(
       offset: entity.offset,
+      favorites: entity.favorites,
     );
   }
 
   final int offset;
+  final bool favorites;
 
   String toQuery() => '''
 query getRestaurants {

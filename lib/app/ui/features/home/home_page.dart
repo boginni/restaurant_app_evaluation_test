@@ -36,16 +36,45 @@ class _HomePageState extends State<HomePage> {
 
   late final StreamSubscription? subscription;
   final List<RestaurantEntity> restaurants = [];
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     subscription = bloc.stream.listen(onState);
-
+    scrollController.addListener(onScroll);
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         loadRestaurants();
       },
+    );
+  }
+
+  void onScroll() {
+    if (scrollController.position.pixels <
+        (scrollController.position.maxScrollExtent - 16 * 2)) {
+      return;
+    }
+
+    final state = bloc.state;
+
+    if (state is! LoadedRestaurantListState) {
+      return;
+    }
+
+    if (state.isLoadingMore) {
+      return;
+    }
+
+    if (state.result.total == restaurants.length) {
+      return;
+    }
+
+    bloc.add(
+      GetRestaurantsEvent(
+        offset: offset,
+        favorites: tabIndex == 1,
+      ),
     );
   }
 
@@ -117,6 +146,7 @@ class _HomePageState extends State<HomePage> {
             bloc: bloc,
             builder: (context, state) {
               return NestedScrollView(
+                controller: scrollController,
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) => [
                   SliverToBoxAdapter(
@@ -166,12 +196,12 @@ class _HomePageState extends State<HomePage> {
                                 child: CircularProgressIndicator(),
                               );
                             }
-        
+
                             return const SizedBox();
                           }
-        
+
                           final restaurant = restaurants[index];
-        
+
                           return RestaurantListTileWidget(
                             image: restaurant
                                 .heroImage.toImageProvider.orDefaultImage,

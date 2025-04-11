@@ -11,6 +11,8 @@ analyzer:
     - lib/l10n/app_localizations_en.dart
     - lib/l10n/app_localizations_es.dart
     - lib/l10n/app_localizations.dart
+    - '**/*.g.dart'
+    - '**/*.mocks.dart'
 
 formatter:
   page_width: 100

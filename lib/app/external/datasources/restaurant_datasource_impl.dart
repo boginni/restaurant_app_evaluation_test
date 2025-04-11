@@ -31,15 +31,13 @@ class RestaurantDatasourceImpl implements RestaurantDatasource {
       throw UnknownFailure(response.data, StackTrace.current);
     }
 
-    final data = response.data;
-
     try {
       final model = RestaurantQueryResultModel.fromJson(
-        data['data']['search'],
+        response.data['data']['search'],
       );
 
       return model.toEntity();
-    } on Exception catch (e, s) {
+    } catch (e, s) {
       throw SerializationFailure(e, s);
     }
   }
@@ -65,7 +63,7 @@ class RestaurantDatasourceImpl implements RestaurantDatasource {
       );
 
       return model.toEntity();
-    } on Exception catch (e, s) {
+    } catch (e, s) {
       throw SerializationFailure(e, s);
     }
   }

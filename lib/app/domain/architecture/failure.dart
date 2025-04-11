@@ -10,7 +10,7 @@ class SerializationFailure extends Failure {
   const SerializationFailure(this.error, StackTrace stackTrace)
       : super(stackTrace);
 
-  final Exception error;
+  final dynamic error;
 
   @override
   bool get isFatal => true;

@@ -12,5 +12,5 @@
   "error": "Error",
   "address": "Address",
   "overallRating": "Overall Rating",
-  "xReviews": "{x}, plural, =0{No reviews} =1{One review} other{{x} Reviews}"
+  "xReviews": "{x, plural, =0{No reviews} =1{One review} other{{x} reviews}}"
 }

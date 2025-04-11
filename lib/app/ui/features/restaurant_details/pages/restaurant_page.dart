@@ -145,7 +145,9 @@ class RestaurantPage extends StatelessWidget {
             ),
           ),
           SliverPadding(
-            padding: padding,
+            padding: padding.copyWith(
+              bottom: 16 * 4,
+            ),
             sliver: SliverList.separated(
               separatorBuilder: (context, index) => const Divider(),
               itemCount: restaurantEntity.reviews?.length ?? 0,

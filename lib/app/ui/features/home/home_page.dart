@@ -109,9 +109,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: DefaultTabController(
+    return Scaffold(
+      body: SafeArea(
+        child: DefaultTabController(
           length: 2,
           child: BlocBuilder<RestaurantListBloc, RestaurantListBlocState>(
             bloc: bloc,
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 32,
+                        vertical: 16 * 2,
                       ),
                       child: Text(
                         context.l10n.restaurantTour,
@@ -166,12 +166,12 @@ class _HomePageState extends State<HomePage> {
                                 child: CircularProgressIndicator(),
                               );
                             }
-
+        
                             return const SizedBox();
                           }
-
+        
                           final restaurant = restaurants[index];
-
+        
                           return RestaurantListTileWidget(
                             image: restaurant
                                 .heroImage.toImageProvider.orDefaultImage,

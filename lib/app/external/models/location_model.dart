@@ -13,6 +13,7 @@ class LocationModel {
   factory LocationModel.fromJson(Map<String, dynamic> json) =>
       _$LocationModelFromJson(json);
 
+  @JsonKey(name: 'formatted_address')
   final String? formattedAddress;
 
   LocationEntity toEntity() => LocationEntity(
